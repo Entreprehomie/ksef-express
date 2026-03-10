@@ -1,0 +1,66 @@
+{
+  "app": {
+    "name": "KSeF Express",
+    "tagline": "Konwersja CSV/Excel na FA(3) XML"
+  },
+  "landing": {
+    "heroTitle": "Gotuj się na obowiązek KSeF od 1 kwietnia 2026",
+    "heroSubtitle": "Konwertuj faktury z CSV lub Excel do oficjalnego formatu FA(3) XML wymaganego przez Ministerstwo Finansów – szybko, bezpiecznie i zgodnie z prawem.",
+    "cta": "Rozpocznij konwersję",
+    "countdownLabel": "Pozostało do obowiązkowego KSeF",
+    "days": "dni",
+    "hours": "godz",
+    "minutes": "min",
+    "seconds": "sek",
+    "features": {
+      "title": "Dlaczego KSeF Express?",
+      "upload": "Prześlij CSV lub Excel",
+      "uploadDesc": "Obsługujemy standardowe kolumny: Data, Numer faktury, NIP, Kwoty netto, VAT, brutto.",
+      "validate": "Automatyczna walidacja",
+      "validateDesc": "Wykrywamy błędy w NIP, datach i kwotach przed eksportem.",
+      "export": "Pobierz gotowy XML",
+      "exportDesc": "100% zgodność z XSD Ministerstwa Finansów – format FA(3)."
+    }
+  },
+  "upload": {
+    "dropzone": "Przeciągnij plik CSV lub Excel tutaj albo kliknij, aby wybrać",
+    "acceptTypes": "Pliki CSV, XLS, XLSX",
+    "errorFileType": "Nieobsługiwany typ pliku. Użyj CSV, XLS lub XLSX.",
+    "errorHeaders": "Brak wymaganych kolumn. Wymagane: Data_Wystawienia, Numer_Faktury, NIP_Sprzedawcy, Nazwa_Sprzedawcy, NIP_Nabywcy, Nazwa_Nabywcy, Kwota_Netto, Stawka_VAT, Kwota_VAT, Kwota_Brutto.",
+    "success": "Plik wczytano poprawnie"
+  },
+  "preview": {
+    "title": "Podgląd danych",
+    "rowsCount": "Liczba pozycji",
+    "hasErrors": "Znaleziono błędy – popraw dane przed eksportem",
+    "noErrors": "Wszystkie dane poprawne",
+    "column": "Kolumna"
+  },
+  "paywall": {
+    "title": "Pobierz plik XML FA(3)",
+    "description": "Jednorazowa płatność 115 PLN – natychmiastowy dostęp do pliku zgodnego z KSeF.",
+    "price": "115 PLN",
+    "button": "Przejdź do płatności",
+    "processing": "Przetwarzanie płatności...",
+    "success": "Płatność zakończona pomyślnie. Możesz pobrać plik XML.",
+    "downloadButton": "Pobierz XML"
+  },
+  "export": {
+    "downloading": "Pobieranie...",
+    "fileName": "faktury_FA3"
+  },
+  "validation": {
+    "nipInvalid": "NIP musi mieć 10 cyfr",
+    "nipFormat": "NIP nieprawidłowy",
+    "amountInvalid": "Kwota nieprawidłowa",
+    "dateInvalid": "Data nieprawidłowa",
+    "required": "Wymagane pole"
+  },
+  "footer": {
+    "copyright": "© 2025 KSeF Express. Wszelkie prawa zastrzeżone.",
+    "disclaimer": "To narzędzie wspiera konwersję danych. Użytkownik ponosi odpowiedzialność za zgodność z regulacjami KSeF."
+  },
+  "header": {
+    "logo": "KSeF Express"
+  }
+}

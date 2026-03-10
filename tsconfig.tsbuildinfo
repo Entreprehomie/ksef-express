@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/dropzone.tsx","./src/components/footer.tsx","./src/components/header.tsx","./src/components/hero.tsx","./src/components/paywall.tsx","./src/components/preview.tsx","./src/hooks/usecountdown.ts","./src/lib/ksef-logic.ts","./src/pages/success.tsx"],"version":"5.9.3"}

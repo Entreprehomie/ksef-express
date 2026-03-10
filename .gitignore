@@ -1,0 +1,21 @@
+# Environment files — never commit secrets
+.env
+.env.local
+.env.production
+.env.*
+
+# Dependencies
+node_modules
+
+# Build output
+dist
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.DS_Store
+.idea
+.vscode
+.vercel

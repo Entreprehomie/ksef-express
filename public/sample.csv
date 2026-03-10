@@ -1,0 +1,3 @@
+Data_Wystawienia,Numer_Faktury,NIP_Sprzedawcy,Nazwa_Sprzedawcy,NIP_Nabywcy,Nazwa_Nabywcy,Kwota_Netto,Stawka_VAT,Kwota_VAT,Kwota_Brutto
+2025-01-15,FA/2025/001,1234563218,Firma Sprzedająca Sp. z o.o.,9876543210,Klient Testowy Sp. z o.o.,100.00,23,23.00,123.00
+2025-02-01,FA/2025/002,1234563218,Firma Sprzedająca Sp. z o.o.,9876543210,Klient Testowy Sp. z o.o.,250.50,23,57.62,308.12

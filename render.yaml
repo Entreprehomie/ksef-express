@@ -1,0 +1,6 @@
+services:
+  - type: web
+    runtime: node
+    name: ksef-express-api
+    buildCommand: npm install
+    startCommand: node server/index.js
