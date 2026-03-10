@@ -23,11 +23,15 @@ function createCheckoutSession(body) {
   const stripePriceId = process.env.STRIPE_PRICE_ID;
   const mode = 'subscription';
   const frontendOrigin = process.env.FRONTEND_ORIGIN || 'http://localhost:5173';
+  const success_url = successUrl != null && successUrl !== '' ? successUrl : `${frontendOrigin}/success`;
+  const cancel_url = cancelUrl != null && cancelUrl !== '' ? cancelUrl : frontendOrigin;
 
   if (!stripeSecret || !stripePriceId) {
     return { error: 'Missing STRIPE_SECRET_KEY or STRIPE_PRICE_ID' };
   }
 
+  console.log('Stripe success_url:', success_url);
+  console.log('Stripe cancel_url:', cancel_url);
   console.log('Current Mode being sent to Stripe: subscription');
   return fetch('https://api.stripe.com/v1/checkout/sessions', {
     method: 'POST',
@@ -40,8 +44,8 @@ function createCheckoutSession(body) {
       'line_items[0][price]': stripePriceId,
       'line_items[0][quantity]': '1',
       'locale': 'pl',
-      'success_url': successUrl || `${frontendOrigin}/success`,
-      'cancel_url': cancelUrl || frontendOrigin,
+      'success_url': success_url,
+      'cancel_url': cancel_url,
     }).toString(),
   })
     .then((res) => res.json())

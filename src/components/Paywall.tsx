@@ -28,7 +28,7 @@ function PaywallContent({ rows, paymentSucceeded }: PaywallProps) {
           body: JSON.stringify({
             priceId: import.meta.env.VITE_STRIPE_PRICE_ID || 'price_115pln',
             successUrl: `${window.location.origin}/success`,
-            cancelUrl: window.location.origin,
+            cancelUrl: `${window.location.origin}/`,
           }),
         }
       );
