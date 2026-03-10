@@ -22,6 +22,7 @@ function createCheckoutSession(body) {
   const stripeSecret = process.env.STRIPE_SECRET_KEY;
   const stripePriceId = process.env.STRIPE_PRICE_ID;
   const mode = 'subscription';
+  const frontendOrigin = process.env.FRONTEND_ORIGIN || 'http://localhost:5173';
 
   if (!stripeSecret || !stripePriceId) {
     return { error: 'Missing STRIPE_SECRET_KEY or STRIPE_PRICE_ID' };
@@ -39,8 +40,8 @@ function createCheckoutSession(body) {
       'line_items[0][price]': stripePriceId,
       'line_items[0][quantity]': '1',
       'locale': 'pl',
-      'success_url': successUrl || 'http://localhost:5173/success',
-      'cancel_url': cancelUrl || process.env.ORIGIN || 'http://localhost:5174',
+      'success_url': successUrl || `${frontendOrigin}/success`,
+      'cancel_url': cancelUrl || frontendOrigin,
     }).toString(),
   })
     .then((res) => res.json())
