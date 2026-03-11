@@ -97,8 +97,8 @@ function PaywallContent({ rows, paymentSucceeded }: PaywallProps) {
       </p>
       <div className="grid sm:grid-cols-2 gap-6 min-h-0">
         <div className="rounded-lg border border-gov-blue-200 bg-gov-blue-50/50 p-5 flex flex-col">
-          <h4 className="font-semibold text-gov-blue-900 mb-1">Starter — 115 PLN/miesiąc</h4>
-          <p className="text-2xl font-bold text-gov-blue-800 mb-2">115 PLN<span className="text-sm font-normal text-gov-blue-600">/miesiąc</span></p>
+          <h4 className="font-semibold text-gov-blue-900 mb-1">Starter — 119 PLN/miesiąc</h4>
+          <p className="text-2xl font-bold text-gov-blue-800 mb-2">119 PLN<span className="text-sm font-normal text-gov-blue-600">/miesiąc</span></p>
           <p className="text-sm text-gov-blue-700 mb-4">Do 50 faktur miesięcznie</p>
           <button
             type="button"
@@ -110,8 +110,8 @@ function PaywallContent({ rows, paymentSucceeded }: PaywallProps) {
           </button>
         </div>
         <div className="rounded-lg border border-gov-blue-200 bg-white p-5 flex flex-col ring-1 ring-gov-blue-200">
-          <h4 className="font-semibold text-gov-blue-900 mb-1">Unlimited — 229 PLN/miesiąc</h4>
-          <p className="text-2xl font-bold text-gov-blue-800 mb-2">229 PLN<span className="text-sm font-normal text-gov-blue-600">/miesiąc</span></p>
+          <h4 className="font-semibold text-gov-blue-900 mb-1">Unlimited — 239 PLN/miesiąc</h4>
+          <p className="text-2xl font-bold text-gov-blue-800 mb-2">239 PLN<span className="text-sm font-normal text-gov-blue-600">/miesiąc</span></p>
           <p className="text-sm text-gov-blue-700 mb-4">Nieograniczona liczba faktur</p>
           <button
             type="button"
