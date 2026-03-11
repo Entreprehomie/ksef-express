@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { signInWithPopup } from 'firebase/auth';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
 import pl from '@/locales/pl.json';
 import { buildFa3Xml, buildFa3XmlPerRow, type InvoiceRow } from '@/lib/ksef-logic';
+import { auth, provider } from '@/lib/firebase';
 
 const publishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
@@ -20,6 +22,14 @@ function PaywallContent({ rows, paymentSucceeded }: PaywallProps) {
   const handleCheckout = async (priceId: string) => {
     setLoading(priceId);
     try {
+      if (!auth.currentUser) {
+        try {
+          await signInWithPopup(auth, provider);
+        } catch {
+          setLoading(null);
+          return;
+        }
+      }
       const res = await fetch(
         `${import.meta.env.VITE_API_URL || ''}/api/create-checkout-session`,
         {

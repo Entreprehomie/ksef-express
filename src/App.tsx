@@ -10,14 +10,12 @@ import { Preview } from '@/components/Preview';
 import { Paywall } from '@/components/Paywall';
 import { Footer } from '@/components/Footer';
 import { Success } from '@/pages/Success';
-import { Login } from '@/components/Login';
 import { validateRow, type InvoiceRow } from '@/lib/ksef-logic';
 
 type Step = 'landing' | 'upload' | 'preview';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
-  const [authReady, setAuthReady] = useState(false);
   const [step, setStep] = useState<Step>('landing');
   const [rows, setRows] = useState<InvoiceRow[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +36,6 @@ function App() {
           });
         }
       }
-      setAuthReady(true);
     });
     return () => unsub();
   }, []);
@@ -74,18 +71,6 @@ function App() {
     setStep('upload');
     setError(null);
   };
-
-  if (!authReady) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gov-blue-50">
-        <p className="text-gov-blue-700">Ładowanie...</p>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return <Login />;
-  }
 
   return (
     <Routes>

@@ -39,3 +39,8 @@ STRIPE_SECRET_KEY=sk_xxx STRIPE_PRICE_ID=price_xxx node server/index.js
 ```
 
 Lub skonfiguruj własny endpoint zgodny z `server/index.js`.
+
+## Firebase (logowanie przy płatności)
+
+Logowanie Google jest wymagane tylko w kroku płatności (przy wyborze planu).  
+**Uwaga:** Jeśli logowanie Google nie działa w produkcji, dodaj domenę do Firebase: w konsoli Firebase → Authentication → Settings → Authorized domains dodaj `ksef-express.vercel.app` (oraz ewentualnie własną domenę).
