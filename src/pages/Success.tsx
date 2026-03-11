@@ -2,10 +2,19 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
+import { doc, increment, updateDoc } from 'firebase/firestore';
 import { buildFa3Xml, buildFa3XmlPerRow, type InvoiceRow } from '@/lib/ksef-logic';
+import { auth, db } from '@/lib/firebase';
 
 const STORAGE_KEY = 'ksef_export_rows';
 const FILE_NAME = 'faktury_FA3';
+
+async function incrementUserInvoiceCount() {
+  const uid = auth.currentUser?.uid;
+  if (!uid) return;
+  const userRef = doc(db, 'users', uid);
+  await updateDoc(userRef, { invoiceCount: increment(1) });
+}
 
 function doDownload(rows: InvoiceRow[]) {
   if (rows.length === 1) {
@@ -22,6 +31,7 @@ function doDownload(rows: InvoiceRow[]) {
       saveAs(blob, `${FILE_NAME}.zip`);
     });
   }
+  incrementUserInvoiceCount();
 }
 
 export function Success() {

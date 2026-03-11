@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { onAuthStateChanged, type User } from 'firebase/auth';
+import { getDoc, setDoc, doc, serverTimestamp } from 'firebase/firestore';
+import { auth, db } from '@/lib/firebase';
 import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
 import { Dropzone } from '@/components/Dropzone';
@@ -7,15 +10,38 @@ import { Preview } from '@/components/Preview';
 import { Paywall } from '@/components/Paywall';
 import { Footer } from '@/components/Footer';
 import { Success } from '@/pages/Success';
+import { Login } from '@/components/Login';
 import { validateRow, type InvoiceRow } from '@/lib/ksef-logic';
 
 type Step = 'landing' | 'upload' | 'preview';
 
 function App() {
+  const [user, setUser] = useState<User | null>(null);
+  const [authReady, setAuthReady] = useState(false);
   const [step, setStep] = useState<Step>('landing');
   const [rows, setRows] = useState<InvoiceRow[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [paymentSucceeded, setPaymentSucceeded] = useState(false);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
+      setUser(firebaseUser);
+      if (firebaseUser) {
+        const userRef = doc(db, 'users', firebaseUser.uid);
+        const snap = await getDoc(userRef);
+        if (!snap.exists()) {
+          await setDoc(userRef, {
+            email: firebaseUser.email ?? '',
+            invoiceCount: 0,
+            plan: 'none',
+            createdAt: serverTimestamp(),
+          });
+        }
+      }
+      setAuthReady(true);
+    });
+    return () => unsub();
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -49,12 +75,24 @@ function App() {
     setError(null);
   };
 
+  if (!authReady) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gov-blue-50">
+        <p className="text-gov-blue-700">Ładowanie...</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Login />;
+  }
+
   return (
     <Routes>
       <Route path="/success" element={<Success />} />
       <Route path="/*" element={(
     <div className="min-h-screen flex flex-col bg-gov-blue-50">
-      <Header />
+      <Header user={user} />
       <main className="flex-1">
         {step === 'landing' && (
           <section>
