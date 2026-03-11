@@ -97,29 +97,29 @@ function PaywallContent({ rows, paymentSucceeded }: PaywallProps) {
       </p>
       <div className="grid sm:grid-cols-2 gap-6 min-h-0">
         <div className="rounded-lg border border-gov-blue-200 bg-gov-blue-50/50 p-5 flex flex-col">
-          <h4 className="font-semibold text-gov-blue-900 mb-1">Starter — 115 PLN/month</h4>
-          <p className="text-2xl font-bold text-gov-blue-800 mb-2">115 PLN<span className="text-sm font-normal text-gov-blue-600">/month</span></p>
-          <p className="text-sm text-gov-blue-700 mb-4">Up to 50 invoices per month</p>
+          <h4 className="font-semibold text-gov-blue-900 mb-1">Starter — 115 PLN/miesiąc</h4>
+          <p className="text-2xl font-bold text-gov-blue-800 mb-2">115 PLN<span className="text-sm font-normal text-gov-blue-600">/miesiąc</span></p>
+          <p className="text-sm text-gov-blue-700 mb-4">Do 50 faktur miesięcznie</p>
           <button
             type="button"
             onClick={() => starterPriceId && handleCheckout(starterPriceId)}
             disabled={!!loading || !starterPriceId}
             className="w-full mt-auto px-4 py-3 bg-gov-blue-600 hover:bg-gov-blue-700 disabled:opacity-60 text-white font-semibold rounded-lg transition-colors"
           >
-            {loading === starterPriceId ? pl.paywall.processing : 'Get Started'}
+            {loading === starterPriceId ? pl.paywall.processing : 'Wybierz Starter'}
           </button>
         </div>
         <div className="rounded-lg border border-gov-blue-200 bg-white p-5 flex flex-col ring-1 ring-gov-blue-200">
-          <h4 className="font-semibold text-gov-blue-900 mb-1">Unlimited — 229 PLN/month</h4>
-          <p className="text-2xl font-bold text-gov-blue-800 mb-2">229 PLN<span className="text-sm font-normal text-gov-blue-600">/month</span></p>
-          <p className="text-sm text-gov-blue-700 mb-4">Unlimited invoices per month</p>
+          <h4 className="font-semibold text-gov-blue-900 mb-1">Unlimited — 229 PLN/miesiąc</h4>
+          <p className="text-2xl font-bold text-gov-blue-800 mb-2">229 PLN<span className="text-sm font-normal text-gov-blue-600">/miesiąc</span></p>
+          <p className="text-sm text-gov-blue-700 mb-4">Nieograniczona liczba faktur</p>
           <button
             type="button"
             onClick={() => unlimitedPriceId && handleCheckout(unlimitedPriceId)}
             disabled={!!loading || !unlimitedPriceId}
             className="w-full mt-auto px-4 py-3 bg-gov-blue-600 hover:bg-gov-blue-700 disabled:opacity-60 text-white font-semibold rounded-lg transition-colors"
           >
-            {loading === unlimitedPriceId ? pl.paywall.processing : 'Get Unlimited'}
+            {loading === unlimitedPriceId ? pl.paywall.processing : 'Wybierz Unlimited'}
           </button>
         </div>
       </div>

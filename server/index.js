@@ -17,15 +17,9 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
 
-const ALLOWED_PRICE_IDS = [
-  process.env.STRIPE_PRICE_STARTER,
-  process.env.STRIPE_PRICE_UNLIMITED,
-].filter(Boolean);
-
 function createCheckoutSession(body) {
   const { successUrl, cancelUrl, priceId } = body || {};
   const stripeSecret = process.env.STRIPE_SECRET_KEY;
-  const stripePriceId = priceId && ALLOWED_PRICE_IDS.includes(priceId) ? priceId : ALLOWED_PRICE_IDS[0];
   const mode = 'subscription';
   const frontendOrigin = process.env.FRONTEND_ORIGIN || 'http://localhost:5173';
   const success_url = successUrl != null && successUrl !== '' ? successUrl : `${frontendOrigin}/success`;
@@ -34,8 +28,8 @@ function createCheckoutSession(body) {
   if (!stripeSecret) {
     return Promise.resolve({ error: 'Missing STRIPE_SECRET_KEY' });
   }
-  if (!stripePriceId) {
-    return Promise.resolve({ error: 'Missing or invalid priceId; configure STRIPE_PRICE_STARTER and STRIPE_PRICE_UNLIMITED' });
+  if (!priceId) {
+    return Promise.resolve({ error: 'Missing priceId in request body' });
   }
 
   console.log('Stripe success_url:', success_url);
@@ -49,7 +43,7 @@ function createCheckoutSession(body) {
     },
     body: new URLSearchParams({
       'mode': mode,
-      'line_items[0][price]': stripePriceId,
+      'line_items[0][price]': priceId,
       'line_items[0][quantity]': '1',
       'locale': 'pl',
       'success_url': success_url,
