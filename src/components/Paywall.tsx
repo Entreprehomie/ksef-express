@@ -92,30 +92,32 @@ function PaywallContent({ rows, paymentSucceeded }: PaywallProps) {
       <h3 className="text-xl font-semibold text-gov-blue-900 mb-2">
         {pl.paywall.title}
       </h3>
-      <p className="text-gov-blue-700 mb-6">{pl.paywall.description}</p>
-      <div className="grid sm:grid-cols-2 gap-6">
-        <div className="rounded-lg border border-gov-blue-100 bg-gov-blue-50/50 p-5">
-          <h4 className="font-semibold text-gov-blue-900 mb-1">Starter Plan</h4>
+      <p className="text-gov-blue-700 mb-6">
+        Wybierz plan subskrypcji poniżej. Płatność nastąpi dopiero po kliknięciu wybranego planu.
+      </p>
+      <div className="grid sm:grid-cols-2 gap-6 min-h-0">
+        <div className="rounded-lg border border-gov-blue-200 bg-gov-blue-50/50 p-5 flex flex-col">
+          <h4 className="font-semibold text-gov-blue-900 mb-1">Starter — 119 PLN/month</h4>
           <p className="text-2xl font-bold text-gov-blue-800 mb-2">119 PLN<span className="text-sm font-normal text-gov-blue-600">/month</span></p>
           <p className="text-sm text-gov-blue-700 mb-4">Up to 50 invoices per month</p>
           <button
             type="button"
             onClick={() => starterPriceId && handleCheckout(starterPriceId)}
             disabled={!!loading || !starterPriceId}
-            className="w-full px-4 py-3 bg-gov-blue-600 hover:bg-gov-blue-700 disabled:opacity-60 text-white font-semibold rounded-lg transition-colors"
+            className="w-full mt-auto px-4 py-3 bg-gov-blue-600 hover:bg-gov-blue-700 disabled:opacity-60 text-white font-semibold rounded-lg transition-colors"
           >
             {loading === starterPriceId ? pl.paywall.processing : 'Get Started'}
           </button>
         </div>
-        <div className="rounded-lg border border-gov-blue-200 bg-white p-5 ring-1 ring-gov-blue-200">
-          <h4 className="font-semibold text-gov-blue-900 mb-1">Unlimited Plan</h4>
+        <div className="rounded-lg border border-gov-blue-200 bg-white p-5 flex flex-col ring-1 ring-gov-blue-200">
+          <h4 className="font-semibold text-gov-blue-900 mb-1">Unlimited — 239 PLN/month</h4>
           <p className="text-2xl font-bold text-gov-blue-800 mb-2">239 PLN<span className="text-sm font-normal text-gov-blue-600">/month</span></p>
           <p className="text-sm text-gov-blue-700 mb-4">Unlimited invoices per month</p>
           <button
             type="button"
             onClick={() => unlimitedPriceId && handleCheckout(unlimitedPriceId)}
             disabled={!!loading || !unlimitedPriceId}
-            className="w-full px-4 py-3 bg-gov-blue-600 hover:bg-gov-blue-700 disabled:opacity-60 text-white font-semibold rounded-lg transition-colors"
+            className="w-full mt-auto px-4 py-3 bg-gov-blue-600 hover:bg-gov-blue-700 disabled:opacity-60 text-white font-semibold rounded-lg transition-colors"
           >
             {loading === unlimitedPriceId ? pl.paywall.processing : 'Get Unlimited'}
           </button>
