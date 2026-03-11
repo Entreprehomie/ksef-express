@@ -38,8 +38,8 @@
   },
   "paywall": {
     "title": "Pobierz plik XML FA(3)",
-    "description": "Jednorazowa płatność 115 PLN – natychmiastowy dostęp do pliku zgodnego z KSeF.",
-    "price": "115 PLN",
+    "description": "Wybierz plan subskrypcji poniżej. Płatność nastąpi dopiero po kliknięciu wybranego planu.",
+    "price": "",
     "button": "Przejdź do płatności",
     "processing": "Przetwarzanie płatności...",
     "success": "Płatność zakończona pomyślnie. Możesz pobrać plik XML.",
