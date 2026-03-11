@@ -15,10 +15,10 @@ type PaywallProps = {
 };
 
 function PaywallContent({ rows, paymentSucceeded }: PaywallProps) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<string | null>(null);
 
-  const handleCheckout = async () => {
-    setLoading(true);
+  const handleCheckout = async (priceId: string) => {
+    setLoading(priceId);
     try {
       const res = await fetch(
         `${import.meta.env.VITE_API_URL || ''}/api/create-checkout-session`,
@@ -26,7 +26,7 @@ function PaywallContent({ rows, paymentSucceeded }: PaywallProps) {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            priceId: import.meta.env.VITE_STRIPE_PRICE_ID || 'price_115pln',
+            priceId,
             successUrl: `${window.location.origin}/success`,
             cancelUrl: `${window.location.origin}/`,
           }),
@@ -47,7 +47,7 @@ function PaywallContent({ rows, paymentSucceeded }: PaywallProps) {
         throw new Error(data.error || 'No checkout URL');
       }
     } catch {
-      setLoading(false);
+      setLoading(null);
     }
   };
 
@@ -84,24 +84,42 @@ function PaywallContent({ rows, paymentSucceeded }: PaywallProps) {
     );
   }
 
+  const starterPriceId = import.meta.env.VITE_STRIPE_PRICE_STARTER;
+  const unlimitedPriceId = import.meta.env.VITE_STRIPE_PRICE_UNLIMITED;
+
   return (
     <div className="rounded-xl border border-gov-blue-200 bg-white p-6 sm:p-8 shadow-sm">
       <h3 className="text-xl font-semibold text-gov-blue-900 mb-2">
         {pl.paywall.title}
       </h3>
       <p className="text-gov-blue-700 mb-6">{pl.paywall.description}</p>
-      <div className="flex items-center justify-between gap-4 flex-wrap">
-        <span className="text-2xl font-bold text-gov-blue-800">
-          {pl.paywall.price}
-        </span>
-        <button
-          type="button"
-          onClick={handleCheckout}
-          disabled={loading}
-          className="px-6 py-3 bg-gov-blue-600 hover:bg-gov-blue-700 disabled:opacity-60 text-white font-semibold rounded-lg transition-colors"
-        >
-          {loading ? pl.paywall.processing : pl.paywall.button}
-        </button>
+      <div className="grid sm:grid-cols-2 gap-6">
+        <div className="rounded-lg border border-gov-blue-100 bg-gov-blue-50/50 p-5">
+          <h4 className="font-semibold text-gov-blue-900 mb-1">Starter Plan</h4>
+          <p className="text-2xl font-bold text-gov-blue-800 mb-2">119 PLN<span className="text-sm font-normal text-gov-blue-600">/month</span></p>
+          <p className="text-sm text-gov-blue-700 mb-4">Up to 50 invoices per month</p>
+          <button
+            type="button"
+            onClick={() => starterPriceId && handleCheckout(starterPriceId)}
+            disabled={!!loading || !starterPriceId}
+            className="w-full px-4 py-3 bg-gov-blue-600 hover:bg-gov-blue-700 disabled:opacity-60 text-white font-semibold rounded-lg transition-colors"
+          >
+            {loading === starterPriceId ? pl.paywall.processing : 'Get Started'}
+          </button>
+        </div>
+        <div className="rounded-lg border border-gov-blue-200 bg-white p-5 ring-1 ring-gov-blue-200">
+          <h4 className="font-semibold text-gov-blue-900 mb-1">Unlimited Plan</h4>
+          <p className="text-2xl font-bold text-gov-blue-800 mb-2">239 PLN<span className="text-sm font-normal text-gov-blue-600">/month</span></p>
+          <p className="text-sm text-gov-blue-700 mb-4">Unlimited invoices per month</p>
+          <button
+            type="button"
+            onClick={() => unlimitedPriceId && handleCheckout(unlimitedPriceId)}
+            disabled={!!loading || !unlimitedPriceId}
+            className="w-full px-4 py-3 bg-gov-blue-600 hover:bg-gov-blue-700 disabled:opacity-60 text-white font-semibold rounded-lg transition-colors"
+          >
+            {loading === unlimitedPriceId ? pl.paywall.processing : 'Get Unlimited'}
+          </button>
+        </div>
       </div>
     </div>
   );

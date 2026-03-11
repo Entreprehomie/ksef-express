@@ -1,6 +1,6 @@
 /**
- * Sample backend for Stripe Checkout – 115 PLN one-time payment
- * Loads STRIPE_SECRET_KEY and STRIPE_PRICE_ID from project root .env
+ * Backend for Stripe Checkout – subscription tiers (Starter / Unlimited)
+ * Loads STRIPE_SECRET_KEY and price IDs from project root .env
  */
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -17,17 +17,25 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
 
+const ALLOWED_PRICE_IDS = [
+  process.env.STRIPE_PRICE_STARTER,
+  process.env.STRIPE_PRICE_UNLIMITED,
+].filter(Boolean);
+
 function createCheckoutSession(body) {
-  const { successUrl, cancelUrl } = body || {};
+  const { successUrl, cancelUrl, priceId } = body || {};
   const stripeSecret = process.env.STRIPE_SECRET_KEY;
-  const stripePriceId = process.env.STRIPE_PRICE_ID;
+  const stripePriceId = priceId && ALLOWED_PRICE_IDS.includes(priceId) ? priceId : ALLOWED_PRICE_IDS[0];
   const mode = 'subscription';
   const frontendOrigin = process.env.FRONTEND_ORIGIN || 'http://localhost:5173';
   const success_url = successUrl != null && successUrl !== '' ? successUrl : `${frontendOrigin}/success`;
   const cancel_url = cancelUrl != null && cancelUrl !== '' ? cancelUrl : frontendOrigin;
 
-  if (!stripeSecret || !stripePriceId) {
-    return { error: 'Missing STRIPE_SECRET_KEY or STRIPE_PRICE_ID' };
+  if (!stripeSecret) {
+    return Promise.resolve({ error: 'Missing STRIPE_SECRET_KEY' });
+  }
+  if (!stripePriceId) {
+    return Promise.resolve({ error: 'Missing or invalid priceId; configure STRIPE_PRICE_STARTER and STRIPE_PRICE_UNLIMITED' });
   }
 
   console.log('Stripe success_url:', success_url);
